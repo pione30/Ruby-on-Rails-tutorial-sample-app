@@ -21,3 +21,9 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore /vendor/bundle.
+/vendor/bundle
+
+# Ignore Vim .swp files.
+*.swp
