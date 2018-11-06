@@ -30,4 +30,15 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     get users_path
     assert_select 'a', text: 'delete', count: 0
   end
+
+  test "not activated user is not shown on index" do
+    log_in_as(@admin)
+    get users_path
+    assert_template 'users/index'
+    assert_select 'a', text: @non_admin.name, count: 1
+
+    @non_admin.update_attribute(:activated, false)
+    get users_path
+    assert_select 'a', text: @non_admin.name, count: 0
+  end
 end
