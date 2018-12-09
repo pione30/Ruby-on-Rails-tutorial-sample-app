@@ -59,6 +59,10 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+
   class << self
 
     # 渡された文字列のハッシュ値を返す
