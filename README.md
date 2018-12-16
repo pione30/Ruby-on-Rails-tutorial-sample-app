@@ -13,28 +13,29 @@
 ## 使い方
 
 このアプリケーションを動かす場合は、まずはリポジトリを手元にクローンしてください。
-その後、次のコマンドで必要になる RubyGems をインストールします。
+その後、アプリを起動します。
 
 ```
-$ bundle install --without production
+$ docker-compose up
+```
+
+データベースを作成していない場合は作成します。
+
+```
+$ docker-compose exec web bundle exec rails db:create
 ```
 
 その後、データベースへのマイグレーションを実行します。
 
 ```
-$ rails db:migrate
+$ docker-compose exec web bundle exec rails db:migrate
+$ docker-compose exec web bundle exec rails db:seed
 ```
 
 最後に、テストを実行してうまく動いているかどうか確認してください。
 
 ```
-$ rails test
-```
-
-テストが無事に通ったら、Railsサーバーを立ち上げる準備が整っているはずです。
-
-```
-$ rails server
+$ docker-compose exec web bundle exec rails test
 ```
 
 詳しくは、[*Ruby on Rails チュートリアル*](https://railstutorial.jp/)
